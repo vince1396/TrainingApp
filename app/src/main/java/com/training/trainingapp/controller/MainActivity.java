@@ -1,5 +1,6 @@
-package com.training.trainingapp;
+package com.training.trainingapp.controller;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.training.trainingapp.R;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView mGreetingText;
@@ -17,16 +20,18 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mGreetingText = (TextView) findViewById(R.id.activity_main_greeting_txt);
-        mNameInput = (EditText) findViewById(R.id.activity_main_name_input);
-        mPlayButton =  (Button) findViewById(R.id.activity_main_play_btn);
+        mGreetingText = findViewById(R.id.activity_main_greeting_txt);
+        mNameInput    = findViewById(R.id.activity_main_name_input);
+        mPlayButton   = findViewById(R.id.activity_main_play_btn);
 
         mPlayButton.setEnabled(false);
 
         mNameInput.addTextChangedListener(new TextWatcher() {
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -45,9 +50,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mPlayButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 
+                Intent gameActivity = new Intent(MainActivity.this, GameActivity.class);
+                startActivity(gameActivity);
             }
         });
     }
