@@ -1,4 +1,4 @@
-package com.training.trainingapp.controller;
+package com.training.trainingapp.main.controller;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.training.trainingapp.controller.GameActivity">
+    tools:context="com.training.trainingapp.main.controller.GameActivity">
 
     <TextView
         android:id="@+id/activity_game_question_text"
