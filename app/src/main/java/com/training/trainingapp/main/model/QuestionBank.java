@@ -11,21 +11,17 @@ public class QuestionBank {
     public QuestionBank(List<Question> questionList) {
 
         mQuestionList = questionList;
-
         Collections.shuffle(mQuestionList);
-
         mNextQuestionIndex = 0;
     }
 
     public Question getQuestion() {
 
         // Ensure we loop over the questions
-        if (mNextQuestionIndex == mQuestionList.size()) {
+        if (mNextQuestionIndex == mQuestionList.size())
             mNextQuestionIndex = 0;
-        }
 
         // Please note the post-incrementation
         return mQuestionList.get(mNextQuestionIndex++);
     }
 }
-
