@@ -19,7 +19,8 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:gravity="center"
-        android:text="Question?" />
+        android:text="Question?"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/activity_game_answer1_btn"
@@ -30,7 +31,8 @@
         android:textColor="@color/colorAccent"
         android:background="@android:color/white"
         android:textSize="20sp"
-        android:text="Answer1"/>
+        android:text="Answer1"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/activity_game_answer2_btn"
@@ -41,7 +43,8 @@
         android:textColor="@color/colorAccent"
         android:background="@android:color/white"
         android:textSize="20sp"
-        android:text="Answer2"/>
+        android:text="Answer2"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/activity_game_answer3_btn"
@@ -52,7 +55,8 @@
         android:textColor="@color/colorAccent"
         android:background="@android:color/white"
         android:textSize="20sp"
-        android:text="Answer3"/>
+        android:text="Answer3"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/activity_game_answer4_btn"
@@ -63,6 +67,7 @@
         android:textColor="@color/colorAccent"
         android:background="@android:color/white"
         android:textSize="20sp"
-        android:text="Answer4"/>
+        android:text="Answer4"
+        tools:ignore="HardcodedText" />
 
 </LinearLayout>

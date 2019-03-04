@@ -8,27 +8,46 @@ public class Question {
     private List<String> mChoiceList;
     private int mAnswerIndex;
 
-    public String getQuestion() {
+    public Question(String Question, List<String> ChoiceList, int AnswerIndex)
+    {
+        this.setQuestion(Question);
+        this.setChoiceList(ChoiceList);
+        this.setAnswerIndex(AnswerIndex);
+    }
+
+    public String getQuestion()
+    {
         return mQuestion;
     }
 
-    public void setQuestion(String question) {
+    public void setQuestion(String question)
+    {
         mQuestion = question;
     }
 
-    public List<String> getChoiceList() {
+    public List<String> getChoiceList()
+    {
         return mChoiceList;
     }
 
-    public void setChoiceList(List<String> choiceList) {
+    public void setChoiceList(List<String> choiceList)
+    {
+        if (choiceList == null)
+            throw new IllegalArgumentException("Array cannot be null");
+
         mChoiceList = choiceList;
     }
 
-    public int getAnswerIndex() {
+    public int getAnswerIndex()
+    {
         return mAnswerIndex;
     }
 
-    public void setAnswerIndex(int answerIndex) {
+    public void setAnswerIndex(int answerIndex)
+    {
+        if (answerIndex < 0 || answerIndex >= mChoiceList.size())
+            throw new IllegalArgumentException("Answer index is out of bound");
+
         mAnswerIndex = answerIndex;
     }
 }
