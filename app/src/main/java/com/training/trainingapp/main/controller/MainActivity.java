@@ -1,6 +1,7 @@
 package com.training.trainingapp.main.controller;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -19,20 +20,47 @@ public class MainActivity extends AppCompatActivity {
     private EditText mNameInput;
     private Button mPlayButton;
     private User mUser;
+    private static final int GAME_ACTIVITY_REQUEST_CODE = 42;
+    private String mGreetings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main); //Binding View
 
+        // =========================================================================================
+        // Binding View content
         mGreetingText = findViewById(R.id.activity_main_greeting_txt);
         mNameInput    = findViewById(R.id.activity_main_name_input);
         mPlayButton   = findViewById(R.id.activity_main_play_btn);
-        mUser = new User();
+        // =========================================================================================
+        mUser = new User(); // Create user
+        // =========================================================================================
+        // Get user's preferences
+        String prefName = getPreferences(MODE_PRIVATE).getString("firstName", null);
+        int prefScore = getPreferences(MODE_PRIVATE).getInt("score", 0);
 
-        mPlayButton.setEnabled(false);
+        if(prefName != null)
+        {
+            mUser.setFirstName(prefName);
+            mUser.setScore(prefScore);
 
+            mGreetings = "Welcome back " + mUser.getFirstName() + "\n Score : " + mUser.getScore();
+            mGreetingText.setText(mGreetings);
+
+            mNameInput.setText(mUser.getFirstName());
+        }
+        else
+        {
+            mGreetings = "Welcome! What's your name ?";
+            mGreetingText.setText(mGreetings);
+            mPlayButton.setEnabled(false); // Disable Button
+        }
+        // =========================================================================================
+
+        // =========================================================================================
+        // Listening to changing text on the name input
         mNameInput.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -43,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
+                // Enable button when at least 1 char is typed
                 mPlayButton.setEnabled(s.toString().length() != 0);
             }
 
@@ -51,17 +80,47 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        // =========================================================================================
 
+        // =========================================================================================
+        // When play button is hit
         mPlayButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
+                // Update user first name
                 mUser.setFirstName(mNameInput.getText().toString());
 
+                // Starting GameActivity
                 Intent gameActivity = new Intent(MainActivity.this, GameActivity.class);
-                startActivity(gameActivity);
+                startActivityForResult(gameActivity, GAME_ACTIVITY_REQUEST_CODE);
             }
         });
+        // =========================================================================================
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (GAME_ACTIVITY_REQUEST_CODE == requestCode && RESULT_OK == resultCode)
+        {
+            // Fetch the score from the Intent
+            int score = data.getIntExtra(GameActivity.BUNDLE_EXTRA_SCORE, 0);
+
+            SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+            preferences.edit().putString("firstName", mUser.getFirstName()).apply();
+            preferences.edit().putInt("score", score).apply();
+
+            String firstName = getPreferences(MODE_PRIVATE).getString("firstName", null);
+
+            mUser.setFirstName(firstName);
+            mUser.setScore(score);
+            mGreetings = "Welcome back " + mUser.getFirstName() + "\n Score : " + mUser.getScore();
+
+            mGreetingText.setText(mGreetings);
+        }
     }
 }
